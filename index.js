@@ -65,7 +65,7 @@ const renderCategoryButtons = (cats, replace = false) => {
     btn.type = "button";
     btn.dataset.id = cat.id;
     btn.className =
-      "btn btn-sm md:btn-md normal-case mr-2 md:mr-0 md:mb-2 rounded-lg " +
+      "btn btn-sm w-full md:btn-md normal-case mr-2 md:mr-0 md:mb-2 rounded-lg " +
       "bg-green-200 hover:bg-green-300 text-green-900 border-none";
     btn.textContent = cat.name;
     btn.addEventListener("click", () => onCategoryClick(cat.id, btn));
@@ -167,11 +167,11 @@ const showModal = async (id) => {
   try {
     const res = await fetch(`https://openapi.programming-hero.com/api/plant/${id}`);
     const json = await res.json();
-    const plant = json.plants; // parseSingle লাগবে না, কারণ plant ডেটা সরাসরি json.plants এর ভেতরে
+    const plant = json.plants;
 
     console.log(plant);
 
-    // ✅ img src ঠিকভাবে সেট করো
+   
     const imgEl = document.getElementById("modal-img");
     imgEl.src = plant?.image || "https://via.placeholder.com/200";
     imgEl.alt = plant?.name || "Tree Image";
@@ -187,6 +187,26 @@ const showModal = async (id) => {
     console.error("Modal load failed:", e);
   }
 };
+
+// const showModal = async (id) => {
+//   try {
+//     const res = await fetch(`https://openapi.programming-hero.com/api/plant/${id}`);
+//     const plant = await res.json(); // ডাটা সরাসরি object আকারে আসছে
+
+//     console.log("Plant Data:", plant);
+
+//     // Modal এ ডাটা বসানো
+//     document.getElementById("modal-img").src = plant.image || "https://via.placeholder.com/200";
+//     document.getElementById("modal-title").innerText = plant.name || "Tree Details";
+//     document.getElementById("modal-desc").innerText = plant.description || "No description available.";
+//     document.getElementById("modal-price").innerText = `৳${plant.price || 0}`;
+
+//     document.getElementById("tree-modal").showModal();
+//   } catch (error) {
+//     console.error("Error loading modal:", error);
+//   }
+// };
+
 
 
 // -----------------------------
@@ -208,8 +228,8 @@ const renderCart = () => {
     const li = document.createElement("li");
     li.className = "flex justify-between items-center bg-white rounded-md px-3 py-2";
     li.innerHTML = `<div class="flex flex-col">
-      <span>${it.name}</span>
-      <span>${it.price}</span>
+      <span class="font-bold">${it.name}</span>
+      <span class="font-bold">৳ ${it.price}</span>
       </div>
       <button class="text-red-500 text-lg" aria-label="Remove">✕</button>
     `;
