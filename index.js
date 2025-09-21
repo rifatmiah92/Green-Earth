@@ -1,7 +1,5 @@
-// -----------------------------
-// Config & State
-// -----------------------------
-const CURRENCY = "৳"; // change to "$" if you prefer
+
+const CURRENCY = "৳"; 
 let cart = [];
 let currentCategoryId = "";
 
@@ -40,7 +38,7 @@ const money = (num) => `${CURRENCY}${Number(num || 0)}`;
 // Categories
 // -----------------------------
 const loadCategories = async () => {
-  // Add a static "All Trees" first
+  // Add a static all trees first
   renderCategoryButtons([{ id: "", name: "All Trees" }], true);
 
   try {
@@ -71,7 +69,7 @@ const renderCategoryButtons = (cats, replace = false) => {
     btn.addEventListener("click", () => onCategoryClick(cat.id, btn));
     categoriesEl.appendChild(btn);
 
-    // make "All Trees" active initially
+    // make all trees active initially
     if (replace && idx === 0) setActiveButton(btn);
   });
 };
@@ -91,9 +89,9 @@ const onCategoryClick = (id, btn) => {
   loadTrees(currentCategoryId);
 };
 
-// -----------------------------
-// Trees (Cards)
-// -----------------------------
+
+// Trees Cards
+
 const loadTrees = async (categoryId = "") => {
   showSpinner(true);
   try {
@@ -160,9 +158,9 @@ const renderCards = (trees) => {
   }
 };
 
-// -----------------------------
+
 // Modal
-// -----------------------------
+
 const showModal = async (id) => {
   try {
     const res = await fetch(`https://openapi.programming-hero.com/api/plant/${id}`);
@@ -188,30 +186,8 @@ const showModal = async (id) => {
   }
 };
 
-// const showModal = async (id) => {
-//   try {
-//     const res = await fetch(`https://openapi.programming-hero.com/api/plant/${id}`);
-//     const plant = await res.json(); // ডাটা সরাসরি object আকারে আসছে
-
-//     console.log("Plant Data:", plant);
-
-//     // Modal এ ডাটা বসানো
-//     document.getElementById("modal-img").src = plant.image || "https://via.placeholder.com/200";
-//     document.getElementById("modal-title").innerText = plant.name || "Tree Details";
-//     document.getElementById("modal-desc").innerText = plant.description || "No description available.";
-//     document.getElementById("modal-price").innerText = `৳${plant.price || 0}`;
-
-//     document.getElementById("tree-modal").showModal();
-//   } catch (error) {
-//     console.error("Error loading modal:", error);
-//   }
-// };
-
-
-
-// -----------------------------
 // Cart
-// -----------------------------
+
 const addToCart = (item) => {
   cart.push(item);
   renderCart();
@@ -231,7 +207,7 @@ const renderCart = () => {
       <span class="font-bold">${it.name}</span>
       <span class="font-bold">৳ ${it.price}</span>
       </div>
-      <button class="text-red-500 text-lg" aria-label="Remove">✕</button>
+      <button class=" text-lg" aria-label="Remove"><i class="fa-solid fa-circle-xmark"></i></button>
     `;
     li.querySelector("button").addEventListener("click", () => removeFromCart(i));
     cartListEl.appendChild(li);
@@ -241,8 +217,8 @@ const renderCart = () => {
   totalEl.textContent = money(total);
 };
 
-// -----------------------------
+
 // Init
-// -----------------------------
+
 loadCategories();
-loadTrees(); // initial "All Trees"
+loadTrees(); 
